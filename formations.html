@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations - LevelUpTogo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #004080;
+            --secondary: #00a8e8;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .formations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .formation-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .formation-card.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        
+        .formation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .formation-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .formation-content {
+            padding: 1.5rem;
+        }
+        
+        .formation-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .formation-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .formation-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .formation-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .formation-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #002b57;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .formations-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo_leveluptogo.png" alt="LevelUpTogo">
+                <span>LevelUpTogo</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="indeX.html">Accueil</a></li>
+                    <li><a href="orientation.html">Orientation</a></li>
+                    <li><a href="formations.html">Formations</a></li>
+                    <li><a href="mentorat.html">Mentorat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Nos Formations Complètes</h1>
+            <p>Choisissez votre parcours et commencez dès maintenant votre apprentissage</p>
+        </div>
+        
+        <!-- Barre de filtres -->
+        <div class="filters-container">
+            <button class="filter-btn active" data-filter="all">Toutes</button>
+            <button class="filter-btn" data-filter="technologie">Technologie</button>
+            <button class="filter-btn" data-filter="data">Data</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+            <button class="filter-btn" data-filter="cybersecurite">Cybersécurité</button>
+            <button class="filter-btn" data-filter="business">Business</button>
+        </div>
+        
+        <div class="formations-container">
+            <!-- Catégorie Technologie -->
+            <div class="formation-card" data-category="technologie">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Technologie</span>
+                    <h3 class="formation-title">Développement Web Full Stack</h3>
+                    <p class="formation-description">
+                        Maîtrisez HTML, CSS, JavaScript et les frameworks modernes pour créer des applications web complètes.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 8 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.8/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf1.html?formation=web-dev" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="technologie">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Technologie</span>
+                    <h3 class="formation-title">React JS Avancé</h3>
+                    <p class="formation-description">
+                        Approfondissez vos connaissances de React avec les hooks, le contexte et Redux.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 6 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.7/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf2.html?formation=react" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="technologie">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Technologie</span>
+                    <h3 class="formation-title">Applications Mobile avec Flutter</h3>
+                    <p class="formation-description">
+                        Développez des applications cross-platform performantes avec le framework Flutter.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 10 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.6/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=flutter" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Data -->
+            <div class="formation-card" data-category="data">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Data</span>
+                    <h3 class="formation-title">Data Science Fondamentaux</h3>
+                    <p class="formation-description">
+                        Apprenez Python, Pandas et les bases du machine learning pour analyser des données complexes.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 10 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.6/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=data-science" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="data">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Data</span>
+                    <h3 class="formation-title">Analyse Business avec Power BI</h3>
+                    <p class="formation-description">
+                        Transformez des données brutes en tableaux de bord interactifs pour la prise de décision.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 5 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.5/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=powerbi" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="data">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Data</span>
+                    <h3 class="formation-title">Big Data avec Apache Spark</h3>
+                    <p class="formation-description">
+                        Traitez des volumes massifs de données avec Spark et le cloud computing.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 8 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Avancé</span>
+                        <span><i class="fas fa-star"></i> 4.8/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=spark" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Design -->
+            <div class="formation-card" data-category="design">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Design</span>
+                    <h3 class="formation-title">Design UI/UX Moderne</h3>
+                    <p class="formation-description">
+                        Créez des interfaces utilisateur intuitives et des expériences utilisateur mémorables.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 6 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.7/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=ui-ux" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="design">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Design</span>
+                    <h3 class="formation-title">Motion Design avec After Effects</h3>
+                    <p class="formation-description">
+                        Donnez vie à vos designs avec des animations professionnelles et des effets visuels.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 7 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.6/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=motion" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="design">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Design</span>
+                    <h3 class="formation-title">Design Graphique avec Photoshop</h3>
+                    <p class="formation-description">
+                        Maîtrisez les outils essentiels de Photoshop pour créer des visuels percutants.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 5 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.5/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=photoshop" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Cybersécurité -->
+            <div class="formation-card" data-category="cybersecurite">
+                <div class="formation-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1674669009418-2643aa58b11b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGN5YmVyc2VjdXJpdGV8ZW58MHx8MHx8fDA%3D');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Cybersécurité</span>
+                    <h3 class="formation-title">Fondamentaux Cybersécurité</h3>
+                    <p class="formation-description">
+                        Apprenez les bases de la sécurité informatique et protégez les systèmes contre les cyberattaques.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 6 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.9/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=cybersecurite" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="cybersecurite">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Cybersécurité</span>
+                    <h3 class="formation-title">Ethical Hacking</h3>
+                    <p class="formation-description">
+                        Découvrez les techniques de test d'intrusion pour sécuriser les systèmes informatiques.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 8 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.8/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=hacking" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="cybersecurite">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1560732488-6b0df2402544?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Cybersécurité</span>
+                    <h3 class="formation-title">Sécurité des Réseaux</h3>
+                    <p class="formation-description">
+                        Protégez les infrastructures réseau contre les attaques et les intrusions.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 7 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Avancé</span>
+                        <span><i class="fas fa-star"></i> 4.7/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=reseau" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Business -->
+            <div class="formation-card" data-category="business">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Business</span>
+                    <h3 class="formation-title">Entrepreneuriat Digital</h3>
+                    <p class="formation-description">
+                        Lancez et développez votre entreprise en ligne avec des stratégies éprouvées.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 6 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Débutant</span>
+                        <span><i class="fas fa-star"></i> 4.7/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=entrepreneuriat" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="business">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Business</span>
+                    <h3 class="formation-title">Marketing Digital Complet</h3>
+                    <p class="formation-description">
+                        Maîtrisez tous les canaux digitaux pour promouvoir efficacement votre business.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 8 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.6/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=marketing" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card" data-category="business">
+                <div class="formation-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                <div class="formation-content">
+                    <span class="formation-category">Business</span>
+                    <h3 class="formation-title">Gestion de Projet Agile</h3>
+                    <p class="formation-description">
+                        Adoptez les méthodologies Agile pour manager vos projets efficacement.
+                    </p>
+                    <div class="formation-meta">
+                        <span><i class="fas fa-clock"></i> 5 semaines</span>
+                        <span><i class="fas fa-user-graduate"></i> Intermédiaire</span>
+                        <span><i class="fas fa-star"></i> 4.8/5</span>
+                    </div>
+                    <div class="formation-footer">
+                        <a href="pdf.html?formation=agile" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i> Commencer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 LevelUpTogo. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Filtrage des formations
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const formationCards = document.querySelectorAll('.formation-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Active le bouton cliqué
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    
+                    // Filtre les formations
+                    formationCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

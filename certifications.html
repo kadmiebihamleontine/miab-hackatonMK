@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications - LevelUpTogo</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <style>
+      :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        min-height: 100vh;
+      }
+
+      /* Bulles animées */
+      .bubbles {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .bubble {
+        position: absolute;
+        bottom: -100px;
+        background: rgba(52, 152, 219, 0.1);
+        border-radius: 50%;
+        animation: rise 15s infinite ease-in;
+      }
+
+      @keyframes rise {
+        0% { bottom: -100px; transform: translateX(0); }
+        50% { transform: translateX(100px); }
+        100% { bottom: 1080px; transform: translateX(-200px); }
+      }
+
+      .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
+      .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 5s; animation-delay: 1s; }
+      .bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 7s; animation-delay: 2s; }
+      
+      header {
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(5px);
+      }
+      
+      header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--light);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      }
+      
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+      
+      nav ul li {
+        margin-right: 1.5rem;
+      }
+      
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+      
+      nav ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--secondary);
+        transition: width 0.3s;
+      }
+      
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+      
+      nav ul li a:hover {
+        color: var(--secondary);
+      }
+      
+      main {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+      }
+      
+      .certification-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      
+      .certification-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+      
+      .certification-header h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--secondary), var(--accent));
+        border-radius: 2px;
+      }
+      
+      .certification-header p {
+        font-size: 1.2rem;
+        color: var(--dark);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      
+      .benefits {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .benefit-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-left: 4px solid var(--secondary);
+      }
+      
+      .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      }
+      
+      .benefit-icon {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+      }
+      
+      .benefit-card h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+      
+      .benefit-card p {
+        color: var(--dark);
+        line-height: 1.7;
+      }
+      
+      .certificate-showcase {
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 3rem 0;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        text-align: center;
+      }
+      
+      .certificate-showcase h2 {
+        color: var(--primary);
+        margin-bottom: 2rem;
+      }
+      
+      .certificate-preview {
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+      }
+      
+      .certificate-preview:hover {
+        transform: scale(1.02);
+      }
+      
+      .certificate-preview img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      .cta-section {
+        text-align: center;
+        margin: 3rem 0;
+      }
+      
+      .cta-btn {
+        background: linear-gradient(135deg, var(--secondary), #2980b9);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        display: inline-block;
+      }
+      
+      .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+      }
+      
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        margin-top: 3rem;
+        backdrop-filter: blur(5px);
+      }
+      
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+        }
+        
+        nav ul li {
+          margin: 0.5rem 0;
+        }
+        
+        .certification-header h1 {
+          font-size: 2rem;
+        }
+        
+        .benefits {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+</head>
+<body>
+  <!-- Bulles animées en arrière-plan -->
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header>
+    <h1>LevelUpTogo</h1>
+    <nav>
+      <ul>
+        <li><a href="indeX.html">Accueil</a></li>
+        <li><a href="orientation.html">Orientation</a></li>
+        <li><a href="formations.html">Formations</a></li>
+        <li><a href="mentorat.html">Mentorat</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="certification-header">
+      <h1>🎓 Obtenir une certification avec LevelUpTogo</h1>
+      <p>
+        Validez vos compétences avec nos certifications reconnues par les professionnels. 
+        Après avoir suivi une formation complète, passez l'évaluation finale pour obtenir 
+        votre certificat numérique attestant de vos nouvelles compétences.
+      </p>
+    </section>
+    
+    <section class="benefits">
+      <div class="benefit-card">
+        <div class="benefit-icon">📜</div>
+        <h3>Certificats reconnus</h3>
+        <p>
+          Nos certifications sont valorisées par nos partenaires professionnels et éducatifs, 
+          donnant plus de poids à votre CV et profil professionnel.
+        </p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">💯</div>
+        <h3>Évaluation complète</h3>
+        <p>
+          Des tests pratiques et théoriques pour valider l'ensemble des compétences acquises 
+          pendant votre formation.
+        </p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">🎯</div>
+        <h3>Accès immédiat</h3>
+        <p>
+          Recevez instantanément votre certificat numérique après réussite à l'examen, 
+          directement dans votre espace personnel et par email.
+        </p>
+      </div>
+    </section>
+    
+    <section class="certificate-showcase">
+      <h2>À quoi ressemble votre certificat ?</h2>
+      <div class="certificate-preview">
+        <img src="https://via.placeholder.com/600x400/f5f7fa/3498db?text=Certificat+LevelUpTogo" alt="Exemple de certificat LevelUpTogo">
+      </div>
+    </section>
+    
+    <section class="benefits">
+      <div class="benefit-card">
+        <div class="benefit-icon">🆓</div>
+        <h3>Gratuit pour les membres</h3>
+        <p>
+          L'accès aux évaluations et la délivrance des certificats sont entièrement gratuits 
+          pour tous nos membres actifs.
+        </p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">📊</div>
+        <h3>Suivi de progression</h3>
+        <p>
+          Consultez votre tableau de bord pour suivre vos progrès et savoir quand vous êtes 
+          prêt à passer la certification.
+        </p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">🔐</div>
+        <h3>Sécurisé et vérifiable</h3>
+        <p>
+          Chaque certificat possède un numéro unique permettant aux employeurs de vérifier 
+          son authenticité sur notre plateforme.
+        </p>
+      </div>
+    </section>
+    
+    <section class="cta-section">
+      <h2>Prêt à valider vos compétences ?</h2>
+      <a href="formations.html">
+        <button class="cta-btn">Accéder à mes formations</button>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LevelUpTogo - Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Animation pour les cartes de bénéfices
+    const benefitCards = document.querySelectorAll('.benefit-card');
+    
+    benefitCards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+      
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 500);
+    });
+    
+    // Simulation de chargement du certificat
+    const certificateImg = document.querySelector('.certificate-preview img');
+    certificateImg.style.opacity = '0';
+    
+    setTimeout(() => {
+      certificateImg.style.transition = 'opacity 1s ease';
+      certificateImg.style.opacity = '1';
+    }, 1000);
+  </script>
+</body>
+</html>

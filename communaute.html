@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communauté - LevelUpTogo</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <style>
+      :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        min-height: 100vh;
+      }
+
+      /* Bulles animées */
+      .bubbles {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .bubble {
+        position: absolute;
+        bottom: -100px;
+        background: rgba(52, 152, 219, 0.1);
+        border-radius: 50%;
+        animation: rise 15s infinite ease-in;
+      }
+
+      @keyframes rise {
+        0% { bottom: -100px; transform: translateX(0); }
+        50% { transform: translateX(100px); }
+        100% { bottom: 1080px; transform: translateX(-200px); }
+      }
+
+      .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
+      .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 5s; animation-delay: 1s; }
+      .bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 7s; animation-delay: 2s; }
+      
+      header {
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(5px);
+      }
+      
+      header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--light);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      }
+      
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+      
+      nav ul li {
+        margin-right: 1.5rem;
+      }
+      
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+      
+      nav ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--secondary);
+        transition: width 0.3s;
+      }
+      
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+      
+      nav ul li a:hover {
+        color: var(--secondary);
+      }
+      
+      .logo {
+        text-align: center;
+        margin: 2rem 0;
+      }
+      
+      .logo img {
+        max-width: 200px;
+        height: auto;
+        border: 4px solid #3498db; /* Bordure bleue */
+        border-radius: 50%; /* Forme circulaire - remplacez par 8px pour des coins arrondis */
+        padding: 8px; /* Espace entre le logo et la bordure */
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); /* Ombre portée */
+        transition: all 0.3s ease;
+        background: white; /* Fond derrière le logo si transparent */
+      }
+      
+      .logo img:hover {
+          border-color: #e74c3c; /* Changement de couleur au survol */
+          transform: scale(1.05); /* Légère augmentation de taille */
+          box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3); /* Ombre plus prononcée */
+      }
+      
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+      }
+      
+      .intro-text {
+        font-size: 1.2rem;
+        color: var(--dark);
+        margin-bottom: 2rem;
+        position: relative;
+      }
+      
+      .intro-text::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: var(--secondary);
+      }
+      
+      .platforms {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+      
+      .platform-card {
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        width: 280px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      
+      .platform-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      }
+      
+      .platform-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .whatsapp { color: #25D366; }
+      .telegram { color: #0088cc; }
+      
+      .platform-card h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+      
+      .platform-card p {
+        color: var(--dark);
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+      }
+      
+      .join-btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        text-decoration: none;
+        width: 100%;
+      }
+      
+      .whatsapp-btn {
+        background: #25D366;
+        color: white;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      }
+      
+      .telegram-btn {
+        background: #0088cc;
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+      }
+      
+      .join-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      }
+      
+      .community-motto {
+        font-size: 1.3rem;
+        color: var(--primary);
+        font-weight: 600;
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(255,255,255,0.7);
+        border-radius: 8px;
+        display: inline-block;
+      }
+      
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        margin-top: 3rem;
+        backdrop-filter: blur(5px);
+      }
+      
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+        }
+        
+        nav ul li {
+          margin: 0.5rem 0;
+        }
+        
+        .platforms {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+</head>
+<body>
+  <!-- Bulles animées en arrière-plan -->
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header>
+    <h1>LevelUpTogo</h1>
+    <nav>
+      <ul>
+        <li><a href="indeX.html">Accueil</a></li>
+        <li><a href="orientation.html">Orientation</a></li>
+        <li><a href="formations.html">Formations</a></li>
+        <li><a href="mentorat.html">Mentorat</a></li>
+        <li><a href="communaute.html">Communauté</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="logo">
+    <img src="logo_leveluptogo.png" alt="Logo LevelUpTogo">
+  </div>
+  
+  <main>
+    <p class="intro-text">Rejoignez notre communauté dynamique et échangez avec d'autres apprenants motivés</p>
+    
+    <div class="platforms">
+      <div class="platform-card">
+        <div class="platform-icon whatsapp">
+          <img src="whats.png" alt="">
+        </div>
+        <h3>Groupe WhatsApp</h3>
+        <p>Échanges en temps réel, partage d'opportunités et discussions quotidiennes avec la communauté</p>
+        <a href="https://chat.whatsapp.com/JCD6DzlaISq2bzqhd9Dt2W" class="join-btn whatsapp-btn" target="_blank">Rejoindre</a>
+      </div>
+      
+      <div class="platform-card">
+        <div class="platform-icon telegram">
+          <img src="telegr.png" alt="">
+        </div>
+        <h3>Groupe Telegram</h3>
+        <p>Ressources partagées, annonces importantes et canaux thématiques pour approfondir vos connaissances</p>
+        <a href="https://t.me/+aAxV9hTpIqw2ODM0" class="join-btn telegram-btn" target="_blank">Rejoindre</a>
+      </div>
+    </div>
+    
+    <div class="community-motto">Ensemble, on avance plus vite !</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LevelUpTogo. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Animation pour les cartes de plateformes
+    const platformCards = document.querySelectorAll('.platform-card');
+    
+    platformCards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `all 0.5s ease ${index * 0.2}s`;
+      
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 500);
+    });
+    
+    // Animation pour le logo
+    const logo = document.querySelector('.logo img');
+    logo.style.opacity = '0';
+    logo.style.transform = 'scale(0.8)';
+    
+    setTimeout(() => {
+      logo.style.transition = 'all 0.5s ease';
+      logo.style.opacity = '1';
+      logo.style.transform = 'scale(1)';
+    }, 300);
+  </script>
+</body>
+</html>

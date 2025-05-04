@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz d'Orientation - LevelUpTogo</title>
+  <link rel="stylesheet" href="stylE.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Styles cohérents avec la page d'accueil */
+    body {
+      background: linear-gradient(-45deg, #f4f7fb, #e0e9ff, #d4e1ff, #c6d8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 1.5rem;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00f2fe;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Styles du quiz */
+    .quiz-container {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      color: #004080;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .option {
+      padding: 1rem;
+      background: #f8fafd;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .option:hover {
+      background: #e6f0ff;
+      border-color: #004080;
+    }
+
+    .option.selected {
+      background: #004080;
+      color: white;
+      border-color: #004080;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .quiz-btn {
+      padding: 0.8rem 1.5rem;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .quiz-btn:hover {
+      background: #002b57;
+    }
+
+    .quiz-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Résultats */
+    #result {
+      display: none;
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+    }
+
+    .formation-item {
+      background: #f8fafd;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #004080;
+    }
+
+    .formation-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #004080;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .formation-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Chatbot (identique à la page d'accueil) */
+    .chat-launcher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #004080;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      font-size: 24px;
+    }
+
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .chat-box.open {
+      display: flex;
+    }
+
+    .chat-header {
+      background: #004080;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 18px;
+      max-width: 80%;
+    }
+
+    .user-message {
+      background: #004080;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+
+    .bot-message {
+      background: #f0f0f0;
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      margin-right: 10px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 0 15px;
+      cursor: pointer;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    footer {
+      background-color: #002b57;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+
+    body {
+      background-color: #f4f7fb;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0,64,128,0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0,64,128,0.05) 0%, transparent 20%);
+      background-size: 200% 200%;
+      animation: moveBG 20s infinite alternate;
+    }
+    
+    @keyframes moveBG {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+
+    .main-formation {
+      border-left: 4px solid #00f2fe !important;
+      background: rgba(0, 242, 254, 0.05) !important;
+    }
+    
+    #result {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+        /* Ajoutez ceci temporairement pour debug */
+    #particles-js, #bg-video {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo_leveluptogo.png" alt="Logo LevelUpTogo">
+      <span>LevelUpTogo</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="indeX.html">Accueil</a></li>
+        <li><a href="orientation.html">Orientation</a></li>
+        <li><a href="formations.html">Formations</a></li>
+        <li><a href="mentorat.html">Mentorat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="quiz-container">
+      <h1>Quiz d'Orientation</h1>
+      
+      <form id="quiz-form">
+        <!-- Les questions seront ajoutées dynamiquement -->
+      </form>
+    </div>
+
+    <div id="result" style="display: none;">
+      <h2>Résultats de votre quiz</h2>
+      <div id="formation-list"></div>
+    </div>
+  </main>
+  <div id="particles-js"></div>
+
+  <!-- Chatbot -->
+  <div class="chat-launcher" onclick="toggleChat()">
+    <i class="fas fa-comments"></i>
+  </div>
+
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">
+      <span>Conseiller IA</span>
+      <span class="close-btn" onclick="toggleChat()">✖</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">Bonjour ! Comment puis-je vous aider avec votre orientation ?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Écrivez votre message...">
+      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 LevelUpTogo. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Données du quiz
+    const quizData = [
+      {
+        question: "Quel type d'activité vous passionne le plus ?",
+        options: [
+          "Résoudre des problèmes techniques",
+          "Travailler avec des chiffres et analyses",
+          "Aider et conseiller les autres",
+          "Créer des designs et contenus visuels"
+        ]
+      },
+      {
+        question: "Quel environnement de travail préférez-vous ?",
+        options: [
+          "Bureau tranquille en solo",
+          "Équipe dynamique et collaborative",
+          "En extérieur ou en déplacement",
+          "Chez moi en autonomie complète"
+        ]
+      },
+      {
+        question: "Quelle est votre plus grande force ?",
+        options: [
+          "Raisonnement logique et analytique",
+          "Créativité et innovation",
+          "Communication et relations humaines",
+          "Organisation et gestion de projets"
+        ]
+      }
+    ];
+
+    // Formations avec liens vers la page formations.html
+    const formations = {
+      technique: {
+        title: "Développement Web Full Stack",
+        description: "Maîtrisez les technologies front-end et back-end pour créer des applications web modernes.",
+        link: "formations.html#developpement"
+      },
+      data: {
+        title: "Data Science & Analyse de Données",
+        description: "Apprenez à extraire des insights précieux à partir de données complexes.",
+        link: "formations.html#data"
+      },
+      social: {
+        title: "Relations Humaines et Coaching",
+        description: "Développez vos compétences en communication et accompagnement.",
+        link: "formations.html#rh"
+      },
+      design: {
+        title: "Design Graphique & UI/UX",
+        description: "Développez vos compétences en création visuelle et expérience utilisateur.",
+        link: "formations.html#design"
+      }
+    };
+
+    // Variables d'état
+    let currentQuestion = 0;
+    let answers = [];
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      renderQuestion();
+    });
+
+    // Afficher la question actuelle
+    function renderQuestion() {
+      const quizForm = document.getElementById('quiz-form');
+      quizForm.innerHTML = '';
+      
+      const q = quizData[currentQuestion];
+      
+      const questionDiv = document.createElement('div');
+      questionDiv.className = 'question active';
+      questionDiv.innerHTML = `
+        <h3>${q.question}</h3>
+        <div class="options">
+          ${q.options.map((option, i) => `
+            <div class="option" onclick="selectOption(this, ${i})">${option}</div>
+          `).join('')}
+        </div>
+      `;
+      
+      quizForm.appendChild(questionDiv);
+      
+      // Boutons de navigation
+      const navDiv = document.createElement('div');
+      navDiv.className = 'quiz-nav';
+      
+      if (currentQuestion > 0) {
+        navDiv.innerHTML += `
+          <button class="quiz-btn" onclick="prevQuestion()">
+            <i class="fas fa-arrow-left"></i> Précédent
+          </button>
+        `;
+      } else {
+        navDiv.innerHTML += `<div></div>`;
+      }
+      
+      if (currentQuestion < quizData.length - 1) {
+        navDiv.innerHTML += `
+          <button class="quiz-btn" id="nextBtn" disabled onclick="nextQuestion()">
+            Suivant <i class="fas fa-arrow-right"></i>
+          </button>
+        `;
+      } else {
+        navDiv.innerHTML += `
+          <button class="quiz-btn" id="submitBtn" disabled onclick="submitQuiz(event)">
+            Voir résultats <i class="fas fa-check"></i>
+          </button>
+        `;
+      }
+      
+      quizForm.appendChild(navDiv);
+    }
+
+    // Sélectionner une option
+    function selectOption(element, index) {
+      const options = element.parentElement.querySelectorAll('.option');
+      options.forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      
+      answers[currentQuestion] = index;
+      
+      // Activer le bouton suivant/soumettre
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      if (nextBtn) nextBtn.disabled = false;
+      if (submitBtn) submitBtn.disabled = false;
+    }
+
+    // Question précédente
+    function prevQuestion() {
+      currentQuestion--;
+      renderQuestion();
+    }
+
+    // Question suivante
+    function nextQuestion() {
+      currentQuestion++;
+      renderQuestion();
+    }
+
+    // Soumettre le quiz
+    function submitQuiz(event) {
+      if (event) event.preventDefault(); // Empêche le rechargement
+  
+      // Calcul des résultats (version améliorée)
+      const scores = {
+        technique: answers.filter(a => a === 0).length,
+        data: answers.filter(a => a === 1).length,
+        social: answers.filter(a => a === 2).length,
+        design: answers.filter(a => a === 3).length
+      };
+      
+      const mainFormation = Object.keys(scores).reduce((a, b) => 
+        scores[a] > scores[b] ? a : b
+      );
+      
+      showResults(mainFormation);
+    }
+
+    // Afficher les résultats
+    // Remplacez TOUTE la fonction showResults() par cette version unique et complète :
+    function showResults(mainFormation) {
+      const resultDiv = document.getElementById('result');
+      const formationList = document.getElementById('formation-list');
+      
+      if (!resultDiv || !formationList) {
+        console.error("Éléments HTML introuvables !");
+        return;
+      }
+
+      // Changement de fond dynamique
+      const colors = {
+        technique: "linear-gradient(135deg, #004080, #0066cc)",
+        data: "linear-gradient(135deg, #00695c, #00bfa5)",
+        social: "linear-gradient(135deg, #8e24aa, #e53935)",
+        design: "linear-gradient(135deg, #ff8f00, #ffca28)"
+      };
+      
+      document.body.style.background = colors[mainFormation];
+      document.body.style.transition = "background 1s ease";
+
+      // Génération du contenu des résultats
+      formationList.innerHTML = `
+        <div class="formation-item main-formation">
+          <h3>${formations[mainFormation].title}</h3>
+          <p>${formations[mainFormation].description}</p>
+          <a href="${formations[mainFormation].link}" class="formation-link">
+            Voir cette formation <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <h3 style="margin: 20px 0 10px; color: #004080;">Autres formations qui pourraient vous intéresser :</h3>
+      `;
+
+      // Ajout des autres formations
+      for (const [key, formation] of Object.entries(formations)) {
+        if (key !== mainFormation) {
+          formationList.innerHTML += `
+            <div class="formation-item">
+              <h3>${formation.title}</h3>
+              <p>${formation.description}</p>
+              <a href="${formation.link}" class="formation-link">
+                Découvrir cette formation <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          `;
+        }
+      }
+
+      // Affichage avec animation
+      document.querySelector('.quiz-container').style.display = 'none';
+      resultDiv.style.display = 'block';
+      resultDiv.style.animation = 'fadeIn 0.5s forwards';
+      
+      // Scroll vers les résultats
+      setTimeout(() => {
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+    document.addEventListener('mousemove', function(e) {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      document.body.style.background = `
+        radial-gradient(circle at ${x * 100}% ${y * 100}%, 
+        #e0e9ff, #f4f7fb)
+      `;
+    });
+  </script>
+  
+</body>
+</html>

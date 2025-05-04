@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Professionnels | VotrePlateforme</title>
+    <link rel="stylesheet" href="styLe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="pro-nav">
+        <div class="container">
+            <a href="#" class="logo">VotrePlateforme<span>PRO</span></a>
+            <div class="nav-links">
+                <a href="#features">Fonctionnalités</a>
+                <a href="#pricing">Tarifs</a>
+                <a href="#testimonials">Témoignages</a>
+                <button class="login-btn">Connexion</button>
+                <button class="demo-btn">Demander une démo</button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Recrutez les meilleurs talents avec notre plateforme certifiée</h1>
+                <p>Solution complète pour les RH et recruteurs professionnels</p>
+                <div class="cta-buttons">
+                    <button class="primary-cta">Essai gratuit 14 jours</button>
+                    <button class="secondary-cta">
+                        <i class="fas fa-play"></i> Voir la vidéo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/600x400" alt="Tableau de bord PRO">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Fonctionnalités clés pour les professionnels</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Publication d'offres</h3>
+                    <p>Diffusez vos annonces sur multiples canaux en un clic</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-filter"></i>
+                    <h3>Filtres avancés</h3>
+                    <p>Triez les candidats par compétences, disponibilité et plus</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>Tableaux de bord complets pour suivre vos recrutements</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Matching IA</h3>
+                    <p>Notre algorithme vous suggère les meilleurs profils</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Choisissez votre formule</h2>
+            <div class="pricing-tabs">
+                <button class="tab-btn active" data-tab="monthly">Mensuel</button>
+                <button class="tab-btn" data-tab="yearly">Annuel (-20%)</button>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price monthly">€99<span>/mois</span></div>
+                    <div class="price yearly hidden">€79<span>/mois</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 5 offres actives</li>
+                        <li><i class="fas fa-check"></i> 100 candidats/mois</li>
+                        <li><i class="fas fa-check"></i> Support standard</li>
+                    </ul>
+                    <button class="buy-btn">Commencer</button>
+                </div>
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">Populaire</div>
+                    <h3>Pro</h3>
+                    <div class="price monthly">€199<span>/mois</span></div>
+                    <div class="price yearly hidden">€159<span>/mois</span></div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 20 offres actives</li>
+                        <li><i class="fas fa-check"></i> Candidats illimités</li>
+                        <li><i class="fas fa-check"></i> Matching IA</li>
+                        <li><i class="fas fa-check"></i> Support prioritaire</li>
+                    </ul>
+                    <button class="buy-btn">Commencer</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Personnalisé</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Offres illimitées</li>
+                        <li><i class="fas fa-check"></i> API complète</li>
+                        <li><i class="fas fa-check"></i> Compte dédié</li>
+                        <li><i class="fas fa-check"></i> Formation incluse</li>
+                    </ul>
+                    <button class="buy-btn">Nous contacter</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Form Modal -->
+    <div class="modal-overlay hidden">
+        <div class="modal">
+            <button class="close-modal">&times;</button>
+            <h2>Demander une démo</h2>
+            <form id="demo-form">
+                <div class="form-group">
+                    <label for="company">Société*</label>
+                    <input type="text" id="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Votre nom*</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email professionnel*</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone">
+                </div>
+                <div class="form-group">
+                    <label for="needs">Vos besoins</label>
+                    <textarea id="needs" rows="3"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer la demande</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripT.js"></script>
+</body>
+</html>

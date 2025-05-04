@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours PDF - LevelUpTogo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #004080;
+            --secondary: #00a8e8;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .course-menu {
+            list-style: none;
+        }
+        
+        .course-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-menu a {
+            display: block;
+            padding: 0.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .course-menu a:hover {
+            background-color: rgba(0, 168, 232, 0.1);
+            color: var(--primary);
+        }
+        
+        .course-menu a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .course-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .course-header h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .course-header p {
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            text-align: right;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #002b57;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #0086c3;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #ff5252;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .exercise-container, .evaluation-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .exercise-container h3, .evaluation-container h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .question-text {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .options {
+            margin-left: 1rem;
+        }
+        
+        .option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .option input {
+            margin-right: 8px;
+        }
+        
+        .certification-section {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .certification-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .certificate-preview {
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .certificate-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .pdf-viewer {
+                height: 400px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .formation-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo_leveluptogo.png" alt="LevelUpTogo">
+                <span>LevelUpTogo</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="indeX.html">Accueil</a></li>
+                    <li><a href="orientation.html">Orientation</a></li>
+                    <li><a href="formations.html">Formations</a></li>
+                    <li><a href="mentorat.html">Mentorat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Sommaire du Cours</h3>
+            <ul class="course-menu">
+                <li><a href="#" class="active" onclick="showSection('pdf-section')"><i class="fas fa-book"></i> Résumé du Cours</a></li>
+                <li><a href="#" onclick="showSection('exercise-section')"><i class="fas fa-pencil-alt"></i> Exercices</a></li>
+                <li><a href="#" onclick="showSection('evaluation-section')"><i class="fas fa-clipboard-check"></i> Évaluation</a></li>
+                <li><a href="#" onclick="showSection('certification-section')"><i class="fas fa-certificate"></i> Certification</a></li>
+            </ul>
+            
+            <h3 style="margin-top: 2rem;">Progression</h3>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="course-progress"></div>
+                </div>
+                <div class="progress-text" id="progress-text">0% complété</div>
+            </div>
+            
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="markAsCompleted()">
+                <i class="fas fa-check-circle"></i> Marquer comme terminé
+            </button>
+        </aside>
+        
+        <main class="main-content">
+            
+            <section id="pdf-section" class="section active">
+                <div class="course-header">
+                    <span class="formation-badge" id="formation-badge">Design UI/UX Moderne</span>
+                    <h1 id="formation-title">Design UI/UX Moderne</h1>
+                    <p id="formation-description">Créez des interfaces utilisateur intuitives et des expériences utilisateur mémorables.</p>
+                </div>
+                
+                <div class="pdf-viewer">
+                    <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showSection('exercise-section')">
+                        <i class="fas fa-arrow-right"></i> Passer aux Exercices
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Section Exercices -->
+            <section id="exercise-section" class="section">
+                <div class="course-header">
+                    <h1>Exercices Pratiques</h1>
+                    <p>Appliquez les concepts appris dans le cours à travers ces exercices pratiques.</p>
+                </div>
+                
+                <div class="exercise-container">
+                    <h3>Exercice 1: Création d'une page HTML</h3>
+                    <p>Créez une page HTML simple avec une structure de base (doctype, html, head, body) et ajoutez un titre et un paragraphe.</p>
+                    <textarea placeholder="Écrivez votre code ici..." style="width: 100%; min-height: 150px; padding: 1rem; border-radius: 5px; border: 1px solid #ddd;"></textarea>
+                    
+                    <h3 style="margin-top: 1.5rem;">Exercice 2: Stylisation CSS</h3>
+                    <p>Ajoutez du CSS pour styliser votre page HTML. Changez la couleur du texte et ajoutez une marge autour du contenu.</p>
+                    <textarea placeholder="Écrivez votre code CSS ici..." style="width: 100%; min-height: 150px; padding: 1rem; border-radius: 5px; border: 1px solid #ddd;"></textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showSection('pdf-section')">
+                        <i class="fas fa-arrow-left"></i> Revenir au Cours
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSection('evaluation-section')">
+                        <i class="fas fa-arrow-right"></i> Passer à l'Évaluation
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Section Évaluation -->
+            <section id="evaluation-section" class="section">
+                <div class="course-header">
+                    <h1>Évaluation Finale</h1>
+                    <p>Testez vos connaissances avec ce quiz d'évaluation. Vous devez obtenir au moins 80% pour obtenir votre certification.</p>
+                </div>
+                
+                <div class="evaluation-container">
+                    <div class="question">
+                        <p class="question-text">1. Quel .... ?</p>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="q1" id="q1a"> <label for="q1a">&lt;a&gt;</label></div>
+                            <div class="option"><input type="radio" name="q1" id="q1b"> <label for="q1b">&lt;link&gt;</label></div>
+                            <div class="option"><input type="radio" name="q1" id="q1c"> <label for="q1c">&lt;href&gt;</label></div>
+                            <div class="option"><input type="radio" name="q1" id="q1d"> <label for="q1d">&lt;url&gt;</label></div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p class="question-text">2. .... ?</p>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="q2" id="q2a"> <label for="q2a">text-color</label></div>
+                            <div class="option"><input type="radio" name="q2" id="q2b"> <label for="q2b">font-color</label></div>
+                            <div class="option"><input type="radio" name="q2" id="q2c"> <label for="q2c">color</label></div>
+                            <div class="option"><input type="radio" name="q2" id="q2d"> <label for="q2d">text-style</label></div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p class="question-text">3. Quel .... ?</p>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="q3" id="q3a"> <label for="q3a">---</label></div>
+                            <div class="option"><input type="radio" name="q3" id="q3b"> <label for="q3b">----</label></div>
+                            <div class="option"><input type="radio" name="q3" id="q3c"> <label for="q3c">----</label></div>
+                            <div class="option"><input type="radio" name="q3" id="q3d"> <label for="q3d">------</label></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showSection('exercise-section')">
+                        <i class="fas fa-arrow-left"></i> Revenir aux Exercices
+                    </button>
+                    <button class="btn btn-accent" onclick="submitEvaluation()">
+                        <i class="fas fa-check"></i> Soumettre l'Évaluation
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Section Certification -->
+            <section id="certification-section" class="section">
+                <div class="certification-section">
+                    <h2>Félicitations !</h2>
+                    <p>Vous avez terminé avec succès le cours de Design UI/UX Moderne.</p>
+                    <p>Votre score à l'évaluation: <strong>92%</strong></p>
+                    
+                    <div class="certificate-preview">
+                        <img src="certificat-template.jpg" alt="Certificat de Réussite">
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <button class="btn btn-secondary" style="margin-right: 1rem;">
+                            <i class="fas fa-download"></i> Télécharger le Certificat
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-share-alt"></i> Partager sur LinkedIn
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 3rem;">
+                        <h3>Prochaines Étapes</h3>
+                        <p>Explorez nos autres formations pour continuer à développer vos compétences :</p>
+                        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                            <a href="formations.html#javascript" class="btn" style="background: #f0db4f; color: #323330;">
+                                <i class="fab fa-js"></i> -----------
+                            </a>
+                            <a href="formations.html#react" class="btn" style="background: #61dafb; color: #20232a;">
+                                <i class="fab fa-react"></i> ----------
+                            </a>
+                            <a href="formations.html#node" class="btn" style="background: #68a063; color: white;">
+                                <i class="fab fa-node-js"></i> ----------
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 LevelUpTogo. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Gestion des sections
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mettre à jour le menu
+            document.querySelectorAll('.course-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Trouver le lien correspondant et l'activer
+            const activeLink = Array.from(document.querySelectorAll('.course-menu a')).find(link => {
+                return link.getAttribute('onclick').includes(sectionId);
+            });
+            
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Mettre à jour la progression
+            updateProgress();
+            
+            // Faire défiler vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Mise à jour de la barre de progression
+        function updateProgress() {
+            const sections = ['pdf-section', 'exercise-section', 'evaluation-section', 'certification-section'];
+            const activeSection = document.querySelector('.section.active').id;
+            const progress = (sections.indexOf(activeSection) / (sections.length - 1) * 100);
+            
+            document.getElementById('course-progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = Math.round(progress) + '% complété';
+        }
+        
+        // Soumission de l'évaluation
+        function submitEvaluation() {
+            // Ici, vous devriez vérifier les réponses et calculer le score
+            // Pour cet exemple, nous supposons que l'utilisateur a réussi
+            
+            // Afficher la section de certification
+            showSection('certification-section');
+            
+            // Mettre à jour la progression à 100%
+            document.getElementById('course-progress').style.width = '100%';
+            document.getElementById('progress-text').textContent = '100% complété';
+            
+            // Afficher une notification
+            alert('Félicitations ! Vous avez réussi l\'évaluation avec un score de 92%.');
+        }
+        
+        // Marquer comme terminé
+        function markAsCompleted() {
+            const confirmed = confirm('Voulez-vous marquer cette section comme terminée ?');
+            if (confirmed) {
+                alert('Section marquée comme terminée. Votre progression a été enregistrée.');
+                // Ici, vous pourriez envoyer cette information au serveur
+            }
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+
+        // Données des formations
+        const formations = {
+            'Design UI/UX': {
+                title: 'Design UI/UX Moderne',
+                description: 'Créez des interfaces utilisateur intuitives et des expériences utilisateur mémorables.',
+                pdf: 'cours-Design.pdf',
+                badge: 'Designer'
+            }
+        };
+
+        // Récupération du paramètre d'URL
+        function getFormationFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('formation');
+        }
+
+        // Chargement de la formation appropriée
+        function loadFormation() {
+            const formationId = getFormationFromUrl();
+            const formation = formations[formationId] || formations['developpement-web'];
+            
+            // Mise à jour du contenu
+            document.getElementById('formation-title').textContent = formation.title;
+            document.getElementById('formation-description').textContent = formation.description;
+            document.getElementById('formation-badge').textContent = formation.badge;
+            document.getElementById('pdf-iframe').src = formation.pdf;
+            
+            // Mise à jour du titre de la page
+            document.title = `${formation.title} - LevelUpTogo`;
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFormation();
+            updateProgress();
+        });
+
+    </script>
+</body>
+</html>

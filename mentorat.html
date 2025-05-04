@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentorat - LevelUpTogo</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Effet de bulles animées en arrière-plan */
+    .bubbles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(52, 152, 219, 0.1);
+      border-radius: 50%;
+      animation: rise 15s infinite ease-in;
+    }
+
+    .bubble:nth-child(1) {
+      width: 40px;
+      height: 40px;
+      left: 10%;
+      animation-duration: 8s;
+    }
+
+    .bubble:nth-child(2) {
+      width: 20px;
+      height: 20px;
+      left: 20%;
+      animation-duration: 5s;
+      animation-delay: 1s;
+    }
+
+    .bubble:nth-child(3) {
+      width: 50px;
+      height: 50px;
+      left: 35%;
+      animation-duration: 7s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(4) {
+      width: 80px;
+      height: 80px;
+      left: 50%;
+      animation-duration: 11s;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(5) {
+      width: 35px;
+      height: 35px;
+      left: 55%;
+      animation-duration: 6s;
+      animation-delay: 1s;
+    }
+
+    .bubble:nth-child(6) {
+      width: 45px;
+      height: 45px;
+      left: 65%;
+      animation-duration: 8s;
+      animation-delay: 3s;
+    }
+
+    .bubble:nth-child(7) {
+      width: 25px;
+      height: 25px;
+      left: 75%;
+      animation-duration: 7s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(8) {
+      width: 80px;
+      height: 80px;
+      left: 80%;
+      animation-duration: 6s;
+      animation-delay: 1s;
+    }
+
+    @keyframes rise {
+      0% {
+        bottom: -100px;
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(100px);
+      }
+      100% {
+        bottom: 1080px;
+        transform: translateX(-200px);
+      }
+    }
+    
+    header {
+      background: rgba(44, 62, 80, 0.9);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      position: relative;
+      backdrop-filter: blur(5px);
+    }
+    
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--light);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin-right: 1.5rem;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 0.3rem 0;
+      position: relative;
+    }
+    
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary);
+      transition: width 0.3s;
+    }
+    
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    
+    nav ul li a:hover {
+      color: var(--secondary);
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      position: relative;
+    }
+    
+    .mentorat {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mentorat::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(52,152,219,0.05) 0%, rgba(255,255,255,0) 70%);
+      z-index: -1;
+    }
+    
+    .mentorat h2 {
+      color: var(--primary);
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .mentorat h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    .mentorat p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    
+    .mentorat ul {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+    
+    .mentorat ul li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+    
+    .mentorat ul li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+    
+    .btn button {
+      background: linear-gradient(135deg, var(--secondary), #2980b9);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    .btn button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+      transition: all 0.3s;
+    }
+
+    .btn button:hover::after {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+    }
+    
+    .coming-soon {
+      background: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1.2rem;
+      margin: 2rem 0;
+      font-style: italic;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+    }
+
+    .coming-soon::before {
+      content: 'Nouveau !';
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-style: normal;
+      font-weight: bold;
+    }
+    
+    .testimonials {
+      margin: 2.5rem 0 1rem;
+    }
+    
+    .testimonials h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .testimonial {
+      background: rgba(236, 240, 241, 0.7);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      position: relative;
+      border-left: 3px solid var(--secondary);
+    }
+
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 4rem;
+      color: rgba(52, 152, 219, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial p {
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .author {
+      font-weight: 600;
+      color: var(--primary);
+      text-align: right;
+      font-style: normal;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(44, 62, 80, 0.9);
+      color: white;
+      margin-top: 3rem;
+      backdrop-filter: blur(5px);
+    }
+    
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+      }
+      
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+      
+      .mentorat {
+        padding: 1.5rem;
+      }
+
+      .mentorat h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Bulles animées en arrière-plan -->
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <h1>LevelUpTogo</h1>
+      <nav>
+        <ul>
+          <li><a href="indeX.html">Accueil</a></li>
+          <li><a href="orientation.html">Orientation</a></li>
+          <li><a href="formations.html">Formations</a></li>
+          <li><a href="mentorat.html">Mentorat</a></li>
+          <li><a href="communaute.html">Communauté</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="mentorat">
+      <h2>Accompagnement & Mentorat</h2>
+      <p>Chez LevelUpTogo, nous croyons fermement que chaque jeune mérite d'être guidé dans son parcours professionnel. Nos mentors expérimentés sont là pour t'accompagner à chaque étape de ton développement.</p>
+      
+      <h3>Ce que nos mentors peuvent faire pour toi :</h3>
+      <ul>
+        <li>Répondre à toutes tes questions sur les métiers et secteurs d'activité</li>
+        <li>Partager leur expérience professionnelle et leurs conseils pratiques</li>
+        <li>T'aider à identifier tes forces et axes d'amélioration</li>
+        <li>Te conseiller sur tes choix de parcours scolaire et professionnel</li>
+        <li>T'aider à préparer tes candidatures et entretiens</li>
+        <li>Te donner des retours constructifs sur tes projets</li>
+        <li>T'orienter vers des ressources pertinentes</li>
+      </ul>
+
+      <div class="coming-soon">
+        <p><strong>Plateforme de mentorat en ligne :</strong> Bientôt disponible ! Une interface intuitive pour discuter en direct avec des mentors, planifier des sessions et accéder à des ressources exclusives.</p>
+      </div>
+      
+      <a href="communaute.html" class="btn">
+        <button> Rejoindre la communauté des mentors et apprenants</button>
+  
+      </a>
+      <div class="testimonials">
+        <h3>Ils ont bénéficié de notre mentorat</h3>
+        <div class="testimonial">
+          <p>"Grâce à mon mentor, j'ai pu découvrir un métier qui me correspond vraiment et obtenir un stage dans une grande entreprise. Les conseils reçus m'ont permis de gagner en confiance et de mieux me vendre aux recruteurs."</p>
+          <p class="author">- Koffi, 19 ans, Lomé</p>
+        </div>
+        <div class="testimonial">
+          <p>"Le programme de mentorat m'a ouvert les yeux sur des opportunités que je ne connaissais pas. Mon mentor m'a guidé pas à pas dans la construction de mon projet professionnel."</p>
+          <p class="author">- Aïcha, 21 ans, Kara</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LevelUpTogo. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
