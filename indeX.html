@@ -12,7 +12,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
     * {
-      box-sizing: border-box;e
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
@@ -1028,25 +1028,230 @@
       margin: 0 0.5rem;
       color: #777;
     }
+
+      /* Style pour la section recrutement */
+    .mentor-recruitment {
+      background: linear-gradient(135deg, #004080, #00a0e9);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 2rem;
+      border-radius: 10px;
+    }
+
+    .recruitment-steps {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 250px;
+      backdrop-filter: blur(5px);
+    }
+
+    .step-number {
+      background: white;
+      color: #004080;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin: 0 auto 1rem;
+    }
+
+    .cta-button {
+      background: white;
+      color: #004080;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Style du formulaire dans le modal */
+    #mentorForm select, 
+    #mentorForm textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #mentorForm textarea {
+      resize: vertical;
+    }
     
+      /* Section Recruteurs */
+    .recruiter-section {
+      background: #f9f9f9;
+      padding: 4rem 2rem;
+      margin: 2rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .recruiter-benefits {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .benefit-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .benefit-card i {
+      font-size: 2rem;
+      color: #004080;
+      margin-bottom: 1rem;
+    }
+
+    .recruiter-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .secondary-button {
+      padding: 1rem 2rem;
+      border: 2px solid #004080;
+      color: #004080;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .secondary-button:hover {
+      background: #00408010;
+    }
+
+    /* Compteur de caractères */
+    #charCount {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    
+    .pulse-emoji {
+      font-size: 1.2rem;
+      display: inline-block;
+      animation: pulse 1.5s infinite, rotate 4s linear infinite;
+    }
+    
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(10deg); }
+        75% { transform: rotate(-10deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    /* Style de base du bouton */
+    .premium-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      color: #002b57;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+      transition: all 0.3s;
+      margin: 50px; /* Pour bien voir l'animation */
+    }
+
+    /* Conteneur de l'emoji */
+    .emoji-container {
+        display: inline-block;
+        font-size: 24px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+    }
+
+    /* Animation corrigée */
+    .pulse-emoji {
+        display: inline-block;
+        animation: pulse 1.5s infinite ease-in-out, 
+                  float 3s infinite ease-in-out;
+        transform-origin: center bottom;
+    }
+
+    /* Pulsation */
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+    }
+
+    /* Flottement */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    /* Rotation alternative */
+    @keyframes rotate {
+        0% { transform: rotate(-15deg); }
+        50% { transform: rotate(15deg); }
+        100% { transform: rotate(-15deg); }
+    }
+
+    /* Brillance au survol */
+    .premium-btn:hover .pulse-emoji {
+        animation: pulse 0.8s infinite ease-in-out, 
+                  float 1.5s infinite ease-in-out,
+                  rotate 2s infinite ease-in-out;
+    }
   </style>
 </head>
 <body>
   <!-- Barre de navigation -->
   <header>
-    <a href="index.html" class="logo">
+    <a href="indeX.html" class="logo">
       <img src="logo_leveluptogo.png" alt="Logo LevelUpTogo">
       LevelUpTogo
     </a>
 
     <nav>
+  
       <a href="index1.html">Professionnels</a> <!-- Lien ajouté ici -->
       <a href="orientation.html">Quiz</a>
       <a href="formations.html">Formations</a>
       <a href="certifications.html">Certifications</a>
-      <li><a href="indeX.html">Notre site web</a></li>
 
-
+       
+      <div class="premium-cta">
+        <a href="Freemium.html" class="premium-btn">
+            <span class="pulse-emoji">👑</span>
+            <span>OFFRE PREMIUM</span>
+        </a>
+      </div>
       <div class="user-menu">
         <div class="user-toggle" id="userToggle">
           <i class="fas fa-user"></i>
@@ -1098,7 +1303,8 @@
 
   <!-- Barre d'orientation -->
   <div class="breadcrumb">
-    <a href="index.html">Accueil</a>
+    <a href="indeX.html">Accueil</a>
+    
     <span>></span>
     <span>Bienvenue sur LevelUpTogo</span>
   </div>
@@ -1117,6 +1323,7 @@
       <img src="illustration_quiz.png" alt="Illustration Quiz">
     </div>
   </section>
+
 
   <!-- Benefits Section -->
   <section class="benefits">
@@ -1238,6 +1445,78 @@
         </div>
     </div>
   </section>
+
+    
+  <!-- Section Recrutement de Mentors -->
+  <section class="mentor-recruitment">
+    <div class="recruitment-container">
+      <h2>🔎 Recrutement de Mentors</h2>
+      <p class="subtitle">Partagez votre expertise et inspirez la prochaine génération de talents togolais !</p>
+      
+      <div class="recruitment-steps">
+        <!-- Étape 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Postulez en 2 min</h3>
+          <p>Remplissez notre formulaire simplifié.</p>
+        </div>
+        
+        <!-- Étape 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Validation de l'équipe</h3>
+          <p>Nous vérifions votre profil sous 48h.</p>
+        </div>
+        
+        <!-- Étape 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Rencontrez vos mentorés</h3>
+          <p>Planifiez des sessions via notre plateforme.</p>
+        </div>
+      </div>
+      
+      <!-- CTA -->
+      <button id="openMentorForm" class="cta-button">Devenez Mentor →</button>
+    </div>
+  </section>
+
+    <!-- Section Recruteurs -->
+  <section class="recruiter-section">
+    <div class="recruiter-container">
+      <h2>💼 Recrutez nos talents</h2>
+      <p class="subtitle">Accédez à des profils qualifiés formés aux métiers porteurs du Togo</p>
+      
+      <div class="recruiter-benefits">
+        <!-- Carte 1 -->
+        <div class="benefit-card">
+          <i class="fas fa-bullseye"></i>
+          <h3>Cibles précisément</h3>
+          <p>Filtrez par compétences, certifications ou domaine d’étude.</p>
+        </div>
+        
+        <!-- Carte 2 -->
+        <div class="benefit-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Gain de temps</h3>
+          <p>Pré-sélection via nos évaluations techniques.</p>
+        </div>
+        
+        <!-- Carte 3 -->
+        <div class="benefit-card">
+          <i class="fas fa-handshake"></i>
+          <h3>Contact direct</h3>
+          <p>Messagerie intégrée pour échanger avec les candidats.</p>
+        </div>
+      </div>
+      
+      <!-- CTA -->
+      <div class="recruiter-cta">
+        <button id="openRecruiterForm" class="cta-button">Publier une offre</button>
+        <a href="talents.html" class="secondary-button">Voir les profils disponibles →</a>
+      </div>
+    </div>
+  </section>   
 
   <!-- Chat System -->
   <div class="chatbot-container">
@@ -1369,6 +1648,101 @@
     </div>
   </div>
 
+  <!-- Modal de Postulation -->
+  <div class="modal-overlay" id="mentorModal">
+    <div class="modal-container">
+      <span class="close-modal" id="closeMentorModal">&times;</span>
+      <h2>Postuler comme Mentor</h2>
+      
+      <form id="mentorForm">
+        <!-- Champ Nom -->
+        <div class="form-group">
+          <label for="mentorName">Nom complet*</label>
+          <input type="text" id="mentorName" required placeholder="Ex: Komi Atsu">
+        </div>
+        
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="mentorEmail">Email*</label>
+          <input type="email" id="mentorEmail" required placeholder="Ex: contact@leveluptogo.tg">
+        </div>
+        
+        <!-- Champ Domaine d'expertise -->
+        <div class="form-group">
+          <label for="mentorDomain">Domaine d'expertise*</label>
+          <select id="mentorDomain" required>
+            <option value="">Sélectionnez...</option>
+            <option value="tech">Tech & Développement</option>
+            <option value="business">Entrepreneuriat</option>
+            <option value="design">Design Graphique</option>
+            <option value="marketing">Marketing Digital</option>
+          </select>
+        </div>
+        
+        <!-- Champ LinkedIn -->
+        <div class="form-group">
+          <label for="mentorLinkedIn">Profil LinkedIn (optionnel)</label>
+          <input type="url" id="mentorLinkedIn" placeholder="https://linkedin.com/in/votreprofil">
+        </div>
+        
+        <!-- Champ Motivation -->
+        <div class="form-group">
+          <label for="mentorMotivation">Pourquoi devenir mentor ?*</label>
+          <textarea id="mentorMotivation" rows="4" required placeholder="2-3 phrases suffisent..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Soumettre ma candidature</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Recruteur -->
+  <div class="modal-overlay" id="recruiterModal">
+    <div class="modal-container">
+      <span class="close-modal" id="closeRecruiterModal">&times;</span>
+      <h2>Publier une offre d’emploi</h2>
+      
+      <form id="recruiterForm">
+        <!-- Infos Entreprise -->
+        <div class="form-group">
+          <label for="companyName">Nom de l’entreprise*</label>
+          <input type="text" id="companyName" required placeholder="Ex: Startup Togo">
+        </div>
+        
+        <!-- Type d'offre -->
+        <div class="form-group">
+          <label for="jobType">Type de poste*</label>
+          <select id="jobType" required>
+            <option value="">CDI / CDD / Stage...</option>
+            <option value="cdi">CDI</option>
+            <option value="cdd">CDD</option>
+            <option value="stage">Stage</option>
+            <option value="freelance">Freelance</option>
+          </select>
+        </div>
+        
+        <!-- Domaine -->
+        <div class="form-group">
+          <label for="jobDomain">Domaine*</label>
+          <select id="jobDomain" required>
+            <option value="">Tech / Marketing / Design...</option>
+            <option value="tech">Développement Web/Mobile</option>
+            <option value="marketing">Marketing Digital</option>
+            <option value="design">Design Graphique</option>
+          </select>
+        </div>
+        
+        <!-- Description -->
+        <div class="form-group">
+          <label for="jobDescription">Description (max 300 caractères)*</label>
+          <textarea id="jobDescription" rows="4" maxlength="300" required></textarea>
+          <small><span id="charCount">300</span> caractères restants</small>
+        </div>
+        
+        <button type="submit" class="submit-btn">Publier l’offre</button>
+      </form>
+    </div>
+  </div>
   <script>
   
     // Gestion du bloc d'incitation
@@ -1573,6 +1947,45 @@
       if (!chatbotWindow.contains(e.target) && e.target !== chatbotToggle) {
         closeChatbot();
       }
+    });
+
+    // Gestion du modal de recrutement
+    document.getElementById('openMentorForm').addEventListener('click', () => {
+      document.getElementById('mentorModal').classList.add('active');
+    });
+
+    document.getElementById('closeMentorModal').addEventListener('click', () => {
+      document.getElementById('mentorModal').classList.remove('active');
+    });
+
+    // Soumission du formulaire (simulé)
+    document.getElementById('mentorForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Merci ! Votre candidature a été envoyée. Nous vous contacterons sous 48h.');
+      document.getElementById('mentorModal').classList.remove('active');
+      e.target.reset(); // Réinitialise le formulaire
+    });
+
+    // Gestion du modal
+    document.getElementById('openRecruiterForm').addEventListener('click', () => {
+      document.getElementById('recruiterModal').classList.add('active');
+    });
+
+    document.getElementById('closeRecruiterModal').addEventListener('click', () => {
+      document.getElementById('recruiterModal').classList.remove('active');
+    });
+
+    // Compteur de caractères
+    document.getElementById('jobDescription').addEventListener('input', (e) => {
+      const remaining = 300 - e.target.value.length;
+      document.getElementById('charCount').textContent = remaining;
+    });
+
+    // Soumission simulée
+    document.getElementById('recruiterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Offre publiée ! Elle sera visible après modération.');
+      document.getElementById('recruiterModal').classList.remove('active');
     });
   </script>
   <script src="scripT.js"></script>
