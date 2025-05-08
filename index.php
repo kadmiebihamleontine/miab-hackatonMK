@@ -12,7 +12,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
     * {
-      box-sizing: border-box;e
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
@@ -1077,7 +1077,6 @@
     </nav>
   </header>
 
-  <!-- 
   <div class="auth-promo" id="authPromo">
     <div class="auth-promo-content">
       <h2>Débloquez toutes les fonctionnalités !</h2>
@@ -1097,8 +1096,7 @@
         </button>
       </div>
     </div>
-  </div> 
-   -->
+  </div>
 
   <!-- Barre d'orientation -->
   <div class="breadcrumb">
