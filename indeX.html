@@ -1378,7 +1378,7 @@
     
 
   <script>
-    // verification et confirmation du mot des passe
+    /* verification et confirmation du mot des passe
     var mdp1 = document.querySelector('.mdp1');
     var mdp2 = document.querySelector('.mdp2');
     mdp2.onkeyup = function(){
@@ -1391,7 +1391,7 @@
       }else {
         message_error.innerText = "";
       }
-    }
+    }*/
   
     // Gestion du bloc d'incitation
     function showAuthPromo() {
@@ -1489,7 +1489,7 @@
       }
     });
 
-    // Gestion de la soumission des formulaires
+    /* Gestion de la soumission des formulaires
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
@@ -1499,7 +1499,7 @@
       console.log('Tentative de connexion avec:', email, password);
       alert('Connexion en cours...');
       hideModal('loginModal');
-    });
+    }); */
 
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();

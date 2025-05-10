@@ -1,3 +1,11 @@
+
+<?php
+        // Demarrer la session php 
+    session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1321,21 +1329,72 @@
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+  
+        <!-- code php de connexion -->
+        
+
+       <?php
+
+           if(isset($_POST['button_con'])){
+                //si la formulaire est envoyé
+                    echo " Welcome to LevelUp-Togo" ;
+                // se connecte a la base de donnee
+                include "connexion_bd.php" ;
+                // ectraire les infos du formulaire 
+                extract($_POST);
+                // verification si les champ sont vides 
+                if(isset($email) && isset($mdp1) && $email != "" && $mdp1 != ""){
+                    // verifions si les idendifiant sont juste 
+                    $req = mysqli_query($con, "SELECT * FROM connexion WHERE email = '$email' AND mdp1 = '$mdp1'");
+                    if(mysqli_num_rows($req) > 0 ){
+                        // si les id sont justes 
+                        // Creation d'une session qui contient l'eamil
+                       $_SESSION['user'] = $email;
+
+                        // redirection vers la page d'acceuil 
+                        header("location:indeX.html");
+                        unset($_SESSION['message']);
+                        exit();
+                    }else {
+                        // sinon 
+                       $error = "Email ou Mots de passe incorrecte(s) !" ;
+                   } 
+               }
+            } 
+            
+            
+        ?>
+
   <!-- FORMULAIRE DE CONNEXION -->
   <div class="modal-overlay" id="loginModal">
     <div class="modal-container">
       <span class="close-modal" onclick="hideModal('loginModal')">&times;</span>
       <h2 class="modal-title">Connexion</h2>
-      <form id="loginForm">
+            <?php
+                // Affichage le message qui dit qu'un compte a dejà creer  
+                if(isset($_SESSION['message'])){
+                    echo $_SESSION['message'] ;
+                }
+            
+            ?> 
+            <?php
+                // Affichage d'erreur 
+                if(isset($error)){
+                    echo "<p style='color:red;'>$error</p>" ;
+                }
+            
+            ?>  
+
+      <form  action="" method="POST" >
         <div class="form-group">
-          <label for="loginEmail">Email</label>
-          <input type="email" id="loginEmail" required name="email">
+          <label >Email</label>
+          <input type="email" name="email">
         </div>
         <div class="form-group">
-          <label for="loginPassword">Mot de passe</label>
-          <input type="password" id="loginPassword" required name="mdp1">
+          <label >Mot de passe</label>
+          <input type="password"  name="mdp1">
         </div>
-        <button type="submit" class="submit-btn">Se connecter</button>
+        <input type="submit" value="Se connecter"  name="button_con" class="submit-btn">
         <div class="form-footer">
           Pas encore de compte ? <a href="#" onclick="showRegister(); return false;">S'inscrire</a>
         </div>
@@ -1343,13 +1402,86 @@
     </div>
   </div>
 
+  
+  <!-- CODE PHP INSCRIPTION -->
+  <?php
+        if(isset($_POST['button_inscription'])){
+            //echo " Votre formulaire est envoyé , vous recevez un mail de confirmation ." ;
+             // se connecte a la base de donnee
+             include "connexion_bd.php" ;
+             // ectraire les infos du formulaire 
+             extract($_POST);
+             // verification si les champ sont vides 
+             if(isset($nom_complet) && isset($email) && isset($mdp1) && isset($mdp2) && $nom_complet !="" && $email != "" && $mdp1 != "" && $mdp2 != ""){
+                 // verifions si les idendifiant sont juste 
+                 if ($mdp2 != $mdp1){
+                    //s'ils sont diff
+                    $error = "Les mots de passes sont différents";
+
+                 }else{
+                    // s'ils sont exate
+                    $req = mysqli_query($con, "SELECT * FROM inscription WHERE  email ='$email'");
+                     if(mysqli_num_rows($req) == 0 ){
+                        // si ça n'exite pas
+                        $req = mysqli_query($con , "INSERT INTO inscription VALUES (NULL , '$email' , '$mdp1' )");
+                        if ($req){
+                            // si le compte a été creer , vreons une variable pour afficher la page de la connexion
+                            $_SESSION['message'] = "<p style='color:red;'> Votre compte a été créer avec succés !</p>";
+                            //redirection vers la page 
+                            header("location:indeX.html");
+                            exit();
+                        }
+                    }else{
+                        // si ça existe 
+                        $error = " Cet Email existe déjà !" ; 
+
+                    }
+                 }    
+                   
+            }
+         } 
+    
+  
+  
+  ?>
+
   <!-- FORMULAIRE INSCRIPTION -->
     <div class="modal-overlay" id="registerModal">
       <div class="modal-container">
-          <span class="close-modal" onclick="hideModal('registerModal')">&times;</span>
+          <!-- <span class="close-modal" onclick="hideModal('registerModal')">&times;</span> -->
           <h2 class="modal-title">Inscription</h2>
           <p class="message_error"></p>
-        <form id="registerForm" action="Basedonnee.php" method="POST">
+          <?php
+                // Affichage d'erreur 
+                if(isset($error)){
+                    echo "<p style='color:red;'>$error</p>" ;
+                }
+            
+            ?> 
+
+          <form  action="" method="POST">
+            <div class="form-group">
+              <label >Nom complet</label>
+              <input type="text" name="Nom_complet">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email">
+            </div>
+            <div class="form-group">
+              <label >Mot de passe</label>
+              <input type="password" name="mdp1" class="mdp1">
+            </div>
+            <div class="form-group">
+              <label>Confirmer le mot de passe</label>
+              <input type="password" name="mdp2" class="mdp2">
+            </div>
+            <button type="submit" name="button_inscription" class="submit-btn">S'inscrire</button>
+            <div class="form-footer">
+              Déjà un compte ? <a href="#" onclick="showLogin(); return false;">Se connecter</a>
+            </div>
+        </form>
+       <!-- form id="registerForm" action="" method="POST">
             <div class="form-group">
               <label for="registerName">Nom complet</label>
               <input type="text" id="registerName" required name="nom">
@@ -1359,7 +1491,7 @@
               <input type="email" id="registerEmail" required name="email">
             </div>
             <div class="form-group">
-              <label for="registerPassword">Mot de passe</label>
+              <label for="<registerPassword">Mot de passe</label>
               <input type="password" id="registerPassword" required name="mdp1" class="mdp1">
             </div>
             <div class="form-group">
@@ -1370,13 +1502,13 @@
             <div class="form-footer">
               Déjà un compte ? <a href="#" onclick="showLogin(); return false;">Se connecter</a>
             </div>
-        </form>
+        </form> -->
       </div>
     </div>
     
 
   <script>
-    // verification et confirmation du mot des passe
+    /* verification et confirmation du mot des passe
     var mdp1 = document.querySelector('.mdp1');
     var mdp2 = document.querySelector('.mdp2');
     mdp2.onkeyup = function(){
@@ -1389,7 +1521,7 @@
       }else {
         message_error.innerText = "";
       }
-    }
+    }*/
   
     // Gestion du bloc d'incitation
     function showAuthPromo() {
@@ -1487,17 +1619,17 @@
       }
     });
 
-    // Gestion de la soumission des formulaires
+    /* Gestion de la soumission des formulaires
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
+      const password = document.getElementById('loginPassword').value;*/
       
-      // Ici vous ajouteriez la logique de connexion réelle
+      /* Ici vous ajouteriez la logique de connexion réelle
       console.log('Tentative de connexion avec:', email, password);
       alert('Connexion en cours...');
       hideModal('loginModal');
-    });
+    });*/
 
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
